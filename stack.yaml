@@ -1,4 +1,7 @@
-resolver: lts-8.16
+resolver:
+  name: default-snapshot
+  location: snapshot.yaml
+
 packages:
 - '.'
 extra-deps: []
