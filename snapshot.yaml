@@ -1,21 +1,25 @@
-resolver: lts-9.0
+resolver: lts-9.1
 
 compiler: ghc-8.0.2
 
 packages:
 # Newer than stackage
 # - Cabal-2.0.0.2
-- aeson-1.2.0.0
-- bits-0.5.1
-- bytes-0.15.3
+- aeson-1.2.1.0
+- attoparsec-0.13.2.0
+- git-annex-6.20170818
 - haskell-src-exts-1.19.1
 - mmorph-1.1.0
 - parser-combinators-0.2.0
+# - pandoc-1.19.2.1
+- pandoc-types-1.17.1
 - persistent-template-2.5.2
 - servant-auth-0.2.7.0
 - servant-auth-server-0.2.7.1
 - servant-auth-server-0.2.8.0
+#- singletons-2.3.1
 - stack-1.5.1
+#- th-desugar-1.7
 - time-1.8.0.2
 # Not on stackage
 - GoogleChart-0.2
