@@ -4,6 +4,9 @@ XMLS=$(wildcard xml/*.xml)
 quick:
 	stack install --test --flag "skylighting:executable" --test-arguments '--hide-successes'
 
+build:
+	stack build --flag "skylighting:executable"
+
 test:
 	stack test --test-arguments '--hide-successes'
 
