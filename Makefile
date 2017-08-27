@@ -1,6 +1,15 @@
 quick:
 	stack install --test --flag "skylighting:executable" --test-arguments '--hide-successes $(TESTARGS)'
 
+build:
+	stack build --fast --flag "skylighting:executable"
+
+build-all:
+	-rm -rf skylighting/src/Skylighting/Syntax
+	stack build --fast --flag "skylighting-core:executable" skylighting-core
+	cd skylighting && stack exec -- skylighting-extract ../skylighting-core/xml/*.xml
+	stack build --fast --flag "skylighting:executable"
+
 test:
 	stack test --test-arguments '--hide-successes $(TESTARGS)'
 
