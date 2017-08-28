@@ -63,6 +63,7 @@ import Safe (readMay)
 import Skylighting.Regex
 import qualified System.Console.ANSI.Types as ANSI
 import Text.Printf
+import qualified Clay as C
 
 -- | Full name of a context: the first member of the pair is the full
 -- syntax name, the second the context name within that syntax.
@@ -636,6 +637,9 @@ instance FromColor (Double, Double, Double) where
 
 instance FromColor (Word8, Word8, Word8) where
   fromColor (RGB r g b) = (r, g, b)
+
+instance FromColor C.Color where
+  fromColor (RGB r g b) = C.rgb (toInteger r) (toInteger g) (toInteger b)
 
 instance (Ord a, Floating a) => FromColor (Colour a) where
     fromColor (RGB r g b) = sRGB24 r g b

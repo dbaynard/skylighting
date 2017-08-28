@@ -116,6 +116,7 @@ library
                        text,
                        binary,
                        bytestring,
+                       clay >= 0.12.3,
                        directory >= 1.2.5,
                        filepath,
                        aeson >= 1.0,
