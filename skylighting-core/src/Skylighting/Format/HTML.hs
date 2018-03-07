@@ -112,4 +112,5 @@ styleToCss = TL.unpack . C.renderWith config [] . styleToCss'
   where
     config = C.compact
       { C.rbrace = fromString "}\n"
+      , C.comments = True
       }

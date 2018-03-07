@@ -9,13 +9,15 @@ module Skylighting.Format.HTML.CSS
 
 import Prelude hiding (div, span, (**))
 import Clay (Css)
-import Clay hiding (backgroundColor)
+import Clay hiding (backgroundColor, reverse)
+import Clay.Stylesheet (CommentText(..))
 import qualified Clay as C
 import qualified Clay.Media as CM
 import qualified Clay.Text as CT
 import Data.List (sort)
 import qualified Data.Map as Map
 import Data.Text (Text)
+import qualified Data.Text as Text
 
 import Skylighting.Types
 
@@ -73,24 +75,26 @@ styleToCss' f = do
             textDecoration inherit
 
             empty & do
-              -- Correct empty line height
-              height . em $ 1.2
-              position absolute
+              "Correct empty line height" `commenting` do
+                height . em $ 1.2
+                position absolute
 
           star # sourceCode ? do
-            -- Needed for line numbers to be displayed
-            overflow visible
+            "Needed for line numbers to be displayed" `commenting` do
+              overflow visible
 
-          -- Collapse neighbours correctly
+          -- TODO reduce comment duplication (needs new clay release)
           div # sourceCode ? do
-            sym2 margin (em 1) nil
+            "Collapse neighbours correctly" `commenting` do
+              sym2 margin (em 1) nil
           pre # sourceCode ? do
-            sym margin nil
+            "Collapse neighbours correctly" `commenting` do
+              sym margin nil
 
           code # sourceCode ? do
             whiteSpace CT.pre
-            -- Needed for contents to be position: absolute
-            position relative
+            "Needed for contents to be position: absolute" `commenting` do
+              position relative
 
           query CM.screen [] $ do
             div # sourceCode ? do
@@ -117,21 +121,21 @@ styleToCss' f = do
 toCss :: (TokenType, TokenStyle) -> Css
 toCss (t,tf) = do
         code ** span # shortR t ? do
+          showTokenType t `commenting` do
             colorspec
             backgroundspec
             weightspec
             stylespec
             decorationspec
-            -- comment $ showTokenType t
   where colorspec = pure () `maybe` (color . fromColor) $ tokenColor tf
         backgroundspec = pure () `maybe` (C.backgroundColor . fromColor) $ tokenBackground tf
         weightspec = if tokenBold tf then fontWeight bold else pure ()
         stylespec  = if tokenItalic tf then fontStyle italic else pure ()
         decorationspec = if tokenUnderline tf then textDecoration underline else pure ()
         shortR = byClass . short
-        -- showTokenType t' = case reverse (show t') of
-        --                      'k':'o':'T':xs -> reverse xs
-        --                      _              -> ""
+        showTokenType t' = CommentText . Text.pack $ case reverse (show t') of
+                             'k':'o':'T':xs -> reverse xs
+                             _              -> ""
 
 short :: TokenType -> Text
 short KeywordTok        = "kw"
