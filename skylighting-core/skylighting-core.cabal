@@ -139,7 +139,7 @@ library
   ghc-options:         -Wall
 
 Flag executable
-  Description:   Build skylighting CLI tools
+  Description:   Build skylighting syntax extraction executable
   Default:       False
 
 Flag system-pcre
