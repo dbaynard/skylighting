@@ -49,13 +49,13 @@ styleToCss' f = do
 
             a # sourceLine ? do
               position relative
-              empty & do
-                position absolute
+              left . em $ (-4)
 
               before & do
                 content . attrContent $ "data-line-number"
-                position absolute
-                left . em $ (-5)
+                position relative
+                left . em $ (-1)
+                "Set width on pseudo element" `commenting` display inlineBlock
                 textAlign . alignSide $ sideRight
                 verticalAlign vAlignBaseline
                 border none nil none
@@ -77,7 +77,6 @@ styleToCss' f = do
             empty & do
               "Correct empty line height" `commenting` do
                 height . em $ 1.2
-                position absolute
 
           star # sourceCode ? do
             "Needed for line numbers to be displayed" `commenting` do
@@ -93,7 +92,7 @@ styleToCss' f = do
 
           code # sourceCode ? do
             whiteSpace CT.pre
-            "Needed for contents to be position: absolute" `commenting` do
+            "Needed for contents to be position: relative" `commenting` do
               position relative
 
           query CM.screen [] $ do
